@@ -1,0 +1,30 @@
+@import 'styles/theme/colors';
+@import 'styles/helpers/mixins';
+@import 'styles/helpers/extenders';
+
+.footer {
+	font-family: 'Poppins', Helvetica, Arial, Helvetica, sans-serif;
+	font-weight: 500;
+	height: 40px;
+	min-width: 100vw;
+	padding: 0 20px;
+
+	background-color: $black;
+	color: $light;
+
+	box-shadow: 5px 2px 0 rgba($black, 0.1);
+
+	@include flex-center();
+
+	a {
+		margin-left: 50px;
+		text-decoration: none;
+		font-size: 1.6rem;
+		color: $white;
+		cursor: pointer;
+
+		svg:hover {
+			color: $cyan;
+		}
+	}
+}

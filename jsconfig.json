@@ -1,0 +1,16 @@
+{
+  "compilerOptions": {
+    "baseUrl": ".",
+    "paths": {
+      "@/components/*": ["components/*"],
+      "@/services/*": ["services/*"],
+      "@/context/*": ["context/*"],
+      "@/styles/*": ["styles/*"],
+      "@/theme/*": ["styles/theme/*"],
+      "@/helpers/*": ["styles/helpers/*"],
+      "@/pages/*": ["styles/pages/*"],
+      "@/layout/*": ["styles/layout/*"],
+      "@/scss_components/*": ["styles/components/*"],
+    }
+  }
+}

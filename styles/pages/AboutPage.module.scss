@@ -1,0 +1,43 @@
+@import 'styles/helpers/mixins';
+@import 'styles/theme/theme';
+
+.h1 {
+	color: $dark;
+	font-size: $font-l;
+	text-align: center;
+	margin-bottom: 10vh;
+}
+
+.items {
+	@include flex-center();
+	width: 80%;
+	margin: 0 auto;
+
+	li {
+		@include flex-around(column);
+		width: calc(100% / 3);
+		height: 30vh;
+		padding: 0 2vw;
+
+		span {
+			font-size: $font-xm;
+		}
+
+		p {
+			font-size: $font-m;
+			line-height: $line-m;
+			text-align: center;
+		}
+	}
+	.one:hover {
+		color: $cyan;
+	}
+
+	.two:hover {
+		color: $magenta;
+	}
+
+	.three:hover {
+		color: $yellow;
+	}
+}

@@ -1,0 +1,12 @@
+@import 'styles/helpers/mixins';
+
+.layout {
+	min-height: 100vh;
+	min-width: 100vw;
+	@include flex-between(column);
+
+	main {
+		min-width: 100vw;
+		@include flex-between(column);
+	}
+}

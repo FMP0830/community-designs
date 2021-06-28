@@ -1,0 +1,39 @@
+@import "styles/helpers/mixins";
+@import "styles/theme/theme";
+
+.h1 {
+	color: $dark;
+	font-size: $font-l;
+	text-align: center;
+	margin-bottom: 10vh;
+}
+
+.cards {
+	@include flex-center();
+	width: 100%;
+
+	div {
+		@include flex-center();
+		width: calc(100% / 3);
+		height: 50vh;
+
+		a {
+			background-color: $dark;
+			padding: 15px 25px;
+			border-radius: 25px;
+			color: $light;
+		}
+	}
+
+	.buy {
+		@include main-page-cards($cyan, $orange, 0.5);
+	}
+
+	.vote {
+		@include main-page-cards($magenta, $green, 0.5);
+	}
+
+	.join {
+		@include main-page-cards($yellow, $lilac, 0.5);
+	}
+}

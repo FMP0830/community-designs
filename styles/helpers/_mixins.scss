@@ -1,0 +1,63 @@
+@mixin position(
+	$position,
+	$top: null,
+	$right: null,
+	$bottom: null,
+	$left: null
+) {
+	position: $position;
+	top: $top;
+	right: $right;
+	bottom: $bottom;
+	left: $left;
+}
+
+@mixin pos-absolute($args...) {
+	@include position(absolute, $args...);
+}
+
+@mixin pos-relative($args...) {
+	@include position(relative, $args...);
+}
+
+@mixin pos-fixed($args...) {
+	@include position(fixed, $args...);
+}
+
+@mixin flex($fd: null, $ai: null, $jc: null, $fw: null) {
+	display: flex;
+	flex-direction: $fd;
+	align-items: $ai;
+	justify-content: $jc;
+	flex-wrap: $fw;
+}
+
+@mixin flex-center($direction: null, $wrap: null) {
+	@include flex($direction, center, center, $wrap);
+}
+
+@mixin flex-around($direction: null, $wrap: null) {
+	@include flex($direction, center, space-around);
+}
+
+@mixin flex-between($direction: null, $wrap: null) {
+	@include flex($direction, center, space-between);
+}
+
+@mixin main-page-cards($color1, $color2, $num: 1) {
+	background-color: rgba($color1, $num);
+	transition: background-color 0.3s;
+
+	&:hover {
+		background-color: $color1;
+	}
+
+	a {
+		transition: background-color 0.3s;
+	}
+
+	a:hover {
+		background-color: $color2;
+		color: $light;
+	}
+}

@@ -6,10 +6,21 @@
     "start": "next start"
   },
   "dependencies": {
+    "bcryptjs": "^2.4.3",
+    "cloudinary": "^1.26.1",
+    "mongodb": "^3.6.9",
+    "mongoose": "^5.12.14",
+    "multer": "^1.4.2",
     "next": "latest",
+    "next-auth": "^3.27.1",
     "react": "^16.7.0",
     "react-dom": "^16.7.0",
+    "react-icons": "^4.2.0",
+    "react-toastify": "^7.0.4",
     "sass": "1.26.3"
   },
-  "license": "MIT"
+  "license": "MIT",
+  "devDependencies": {
+    "prop-types": "^15.7.2"
+  }
 }

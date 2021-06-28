@@ -1,0 +1,7 @@
+%nav-item {
+	height: 60px;
+	width: 80px;
+	text-decoration: none;
+	color: $light;
+	@include flex-center();
+}

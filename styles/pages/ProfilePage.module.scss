@@ -1,0 +1,96 @@
+@import 'styles/helpers/mixins';
+@import 'styles/theme/theme';
+
+.userCard {
+	background-color: $light;
+	width: 80%;
+	padding: 35px;
+	margin: 0 auto;
+	box-shadow: 0px 5px 10px rgba($dark, 0.2);
+	border-radius: 25px;
+	@include flex-center(column);
+
+	.userData {
+		width: 90%;
+		@include flex-around;
+
+		img {
+			border-radius: 50%;
+		}
+
+		p {
+			font-size: 2rem;
+		}
+
+		span {
+			font-size: 1.5rem;
+		}
+	}
+
+	.buttons {
+		margin: 5vh 0;
+		height: 5vh;
+		width: 90%;
+		@include flex-between;
+
+		.edit,
+		.orders,
+		.upload,
+		.profile,
+		.delete {
+			color: $light;
+			text-decoration: none;
+			font-size: 1.2rem;
+			padding: 2vh 1vw;
+			border-radius: 25px;
+			transition: background-color 0.3s;
+		}
+
+		.edit {
+			background-color: $cyan;
+
+			&:hover {
+				background-color: $orange;
+			}
+		}
+
+		.orders {
+			background-color: $magenta;
+
+			&:hover {
+				background-color: $green;
+			}
+		}
+
+		.upload {
+			background-color: $yellow;
+			color: $dark;
+
+			&:hover {
+				background-color: $lilac;
+				color: $light;
+			}
+		}
+
+		.profile {
+			background-color: $orange;
+
+			&:hover {
+				background-color: $cyan;
+			}
+		}
+
+		.delete {
+			background-color: $lilac;
+
+			&:hover {
+				background-color: $magenta;
+			}
+		}
+	}
+}
+
+.gallery {
+	display: flex;
+	flex-wrap: wrap;
+}

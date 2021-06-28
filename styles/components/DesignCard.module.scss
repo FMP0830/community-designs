@@ -1,0 +1,39 @@
+@import 'styles/theme/colors';
+@import 'styles/helpers/mixins';
+
+.card {
+	margin: 25px;
+	padding: 15px;
+	border-radius: 15px;
+	width: 20vw;
+	height: auto;
+	background-color: $light;
+	box-shadow: 0px 2px 5px rgba($dark, 0.2);
+	@include flex-center(column);
+
+	div > img {
+		width: 200px;
+		height: 200px;
+	}
+
+	.content {
+		@include flex-center(column);
+		padding: 15px 0;
+    width: 60%;
+
+		h3,
+		h4 {
+			margin: 5px 0;
+		}
+
+		a {
+			margin: 5px 0;
+		}
+
+		div {
+      margin: 5px 0;
+      width: 100%;
+			@include flex-between;
+		}
+	}
+}
