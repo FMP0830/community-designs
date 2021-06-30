@@ -71,3 +71,17 @@ export async function deleteDesign(id) {
 
 	return res.json();
 }
+
+export async function voteDesign(body) {
+	console.log(body);
+
+	const data = await fetch(`${API_URL}/designs/voteDesign`, {
+		method: 'POST',
+		body: JSON.stringify(body),
+		headers: {
+			'Content-type': 'application/json'
+		}
+	});
+
+	return await data.json();
+}

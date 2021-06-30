@@ -19,11 +19,14 @@ export default BuyProductsPage;
 
 export async function getServerSideProps(ctx) {
 	const data = await getAllDesigns();
-	console.log(data);
+
+	const designs = data.filter(
+		(design) => design.valuation > 0 && design.totalVotes / design.valuation >= 0.5
+	);
 
 	return {
 		props: {
-			designs: data
+			designs
 		}
 	};
 }

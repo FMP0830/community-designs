@@ -1,0 +1,81 @@
+@import 'styles/theme/colors';
+@import 'styles/theme/font-sizes';
+@import 'styles/theme/spacing';
+@import 'styles/helpers/mixins';
+
+.container {
+	height: 80vh;
+	width: 98vw;
+	background-color: $light;
+	border-radius: 25px;
+	box-shadow: 5px 10px 15px rgba($dark, 0.2);
+	padding: 4vh 0;
+	@include flex-between(column);
+
+	.info {
+		height: 70%;
+		width: 85%;
+		@include flex-between();
+
+		div {
+			height: 50vh;
+			width: 50vh;
+		}
+
+		.text {
+			width: 65%;
+			@include flex-between();
+
+			.designInfo {
+				width: 60%;
+				@include flex-around(column);
+
+				h2 {
+					font-size: $font-l;
+					line-height: $large;
+					margin-bottom: $font-xm;
+					text-align: center;
+				}
+
+				h4 {
+					font-size: $font-mm;
+					line-height: $medium;
+					text-align: center;
+				}
+			}
+
+			.designAuthor {
+				width: 20%;
+				@include flex-between(column);
+
+				div {
+					@include flex-between();
+					height: 30%;
+					width: 100%;
+				}
+
+				div > div {
+					height: 10vh;
+					width: 10vh;
+					border-radius: 50%;
+				}
+
+				h4 {
+					font-size: $font-xm;
+					line-height: $medium;
+					text-align: center;
+				}
+
+				div > h5 {
+					font-size: $font-xm;
+					line-height: $medium;
+				}
+
+				.score {
+					@include flex-around(column);
+				}
+			}
+		}
+	}
+
+}

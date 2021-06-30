@@ -1,0 +1,106 @@
+import Layout from '@/components/layout/Layout';
+import styles from '@/styles/components/DesignPage/DesignPage.module.scss';
+
+import { useState, useEffect } from 'react';
+import { useRouter } from 'next/router';
+import { useSession } from 'next-auth/client';
+
+import { getDesignData, voteDesign } from '@/services/Design.service';
+import DesignMessage from '@/components/DesignItem/DesignMessage';
+
+import PropTypes from 'prop-types';
+import DesignInfo from '@/components/DesignItem/DesignInfo';
+import DesignVote from '@/components/DesignItem/DesignVote';
+
+function DesignDetailsPage({ design }) {
+	const router = useRouter();
+
+	const [session, loading] = useSession();
+	const [isAuthor, setIsAuthor] = useState(false);
+	const [canVote, setCanVote] = useState(false);
+	const [hasVoted, setHasVoted] = useState(false);
+	const [canBuy, setCanBuy] = useState(false);
+
+	function checkStatus() {
+		if (session) {
+			if (session.user.id === design.author.id) {
+				setIsAuthor(true);
+				return;
+			}
+
+			if (
+				design.totalVotes >= 10 &&
+				design.totalVotes / design.valuation >= 0.5
+			) {
+				setCanBuy(true);
+				return;
+			}
+
+			if (design.voted_by.includes(session.user.id)) {
+				setHasVoted(true);
+				return;
+			}
+
+			setCanVote(true);
+		}
+
+		console.log(
+			'session',
+			session,
+			'isAuthor',
+			isAuthor,
+			'canVote',
+			canVote,
+			'hasVoted',
+			hasVoted,
+			'canBuy',
+			canBuy
+		);
+	}
+
+	async function submitVote(value) {
+		console.log();
+
+		const voteSubmitted = await voteDesign({ value, designId: design.id });
+		if (voteSubmitted) router.push('/vote');
+	}
+
+	useEffect(() => {
+		checkStatus();
+	}, [session]);
+
+	return (
+		<Layout title={design.title}>
+			<div className={styles.container}>
+				<DesignInfo {...design} />
+				{!session && (
+					<DesignMessage text='You have to log in to buy or vote products!' />
+				)}
+				{isAuthor && (
+					<DesignMessage text="You are this design's author, so you can't vote or buy it" />
+				)}
+				{hasVoted && (
+					<DesignMessage text='You have already voted this design!' />
+				)}
+				{canVote && <DesignVote click={submitVote} />}
+				{canBuy && <p>You can buy</p>}
+			</div>
+		</Layout>
+	);
+}
+
+DesignDetailsPage.propTypes = {};
+
+export default DesignDetailsPage;
+
+export async function getServerSideProps(ctx) {
+	const designId = ctx.query.id[0];
+
+	const data = await getDesignData(designId);
+
+	return {
+		props: {
+			design: data
+		}
+	};
+}

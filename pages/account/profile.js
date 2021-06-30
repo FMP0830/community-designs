@@ -1,13 +1,16 @@
 import Image from 'next/image';
-import Link from 'next/link';
 
-import Layout from '@/components/layout/Layout';
 import styles from '@/styles/pages/ProfilePage.module.scss';
-import { getSession } from 'next-auth/client';
-import { getUserData } from '@/services/User.service';
+import Layout from '@/components/layout/Layout';
+import ProfileButton from '@/components/UI/ProfileButton';
 import DesignCard from '@/components/UI/DesignCard';
 
+import { getUserData } from '@/services/User.service';
+import { getSession } from 'next-auth/client';
+import { v4 as uuid4 } from 'uuid';
+
 export default function Page({ user }) {
+	
 	const {
 		id,
 		username,
@@ -20,9 +23,41 @@ export default function Page({ user }) {
 		orders
 	} = user;
 
+	const buttonData = [
+		{
+			id: uuid4(),
+			url: `/account/editprofile`,
+			style: 'edit',
+			text: 'Edit your info'
+		},
+		{
+			id: uuid4(),
+			url: `/account/orders`,
+			style: 'orders',
+			text: 'Your orders'
+		},
+		{
+			id: uuid4(),
+			url: `/account/upload`,
+			style: 'upload',
+			text: 'Upload design'
+		},
+		{
+			id: uuid4(),
+			url: `/users/${id}`,
+			style: 'profile',
+			text: 'Public profile'
+		},
+		{
+			id: uuid4(),
+			url: `/`,
+			style: 'delete',
+			text: 'Delete profile'
+		}
+	];
+
 	return (
 		<Layout title='Profile page'>
-			<>
 				<div className={styles.userCard}>
 					<div className={styles.userData}>
 						<Image src={photo} alt={username} width={150} height={150} />
@@ -32,21 +67,9 @@ export default function Page({ user }) {
 						<span>Com points: {com_points}</span>
 					</div>
 					<div className={styles.buttons}>
-						<Link href='/account/editprofile'>
-							<a className={styles.edit}>Edit your info</a>
-						</Link>
-						<Link href='/account/orders'>
-							<a className={styles.orders}>Your orders</a>
-						</Link>
-						<Link href='/account/upload'>
-							<a className={styles.upload}>Upload design</a>
-						</Link>
-						<Link href={`/users/${id}`}>
-							<a className={styles.profile}>Public profile</a>
-						</Link>
-						<Link href='/'>
-							<a className={styles.delete}>Delete Profile</a>
-						</Link>
+						{buttonData.map((button) => (
+							<ProfileButton key={button.id} {...button} />
+						))}
 					</div>
 				</div>
 				<div className={styles.gallery}>
@@ -54,7 +77,6 @@ export default function Page({ user }) {
 						return <DesignCard key={el.id} {...el} />;
 					})}
 				</div>
-			</>
 		</Layout>
 	);
 }
@@ -77,3 +99,4 @@ export async function getServerSideProps(ctx) {
 		};
 	}
 }
+

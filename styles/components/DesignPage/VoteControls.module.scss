@@ -1,0 +1,33 @@
+@import 'styles/theme/colors';
+@import 'styles/theme/font-sizes';
+@import 'styles/helpers/mixins';
+
+.voteControls {
+	@include flex-around();
+	width: 50%;
+
+	h1 {
+		font-size: $font-xm;
+	}
+
+	.thumbs {
+		width: 40%;
+		@include flex-around();
+
+		.up {
+			color: $dark;
+			cursor: pointer;
+			&:hover {
+				color: $green;
+			}
+		}
+
+		.down {
+			color: $dark;
+			cursor: pointer;
+			&:hover {
+				color: $red;
+			}
+		}
+	}
+}

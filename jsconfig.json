@@ -10,7 +10,7 @@
       "@/helpers/*": ["styles/helpers/*"],
       "@/pages/*": ["styles/pages/*"],
       "@/layout/*": ["styles/layout/*"],
-      "@/scss_components/*": ["styles/components/*"],
+      "@/scss_components/*": ["styles/components/*"]
     }
   }
 }

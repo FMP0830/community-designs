@@ -23,17 +23,18 @@
 
 		h3,
 		h4 {
-			margin: 5px 0;
+			margin: 10px 0;
+			text-align: center;
 		}
 
 		a {
-			margin: 5px 0;
+			margin: 10px;
 		}
 
 		div {
-      margin: 5px 0;
+      margin: 5px;
       width: 100%;
-			@include flex-between;
+			@include flex-center;
 		}
 	}
 }

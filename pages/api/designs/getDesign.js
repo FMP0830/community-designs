@@ -1,4 +1,5 @@
 import Design from '../../../models/Design.model';
+import User from '../../../models/User.model';
 
 import dbConnect from './../../../utils/dbConnect';
 

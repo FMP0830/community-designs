@@ -1,0 +1,15 @@
+@import 'styles/theme/colors';
+@import 'styles/theme/font-sizes';
+@import 'styles/theme/spacing';
+@import 'styles/helpers/mixins';
+
+.message {
+  @include flex-center();
+  height: 100%;
+  width: 100%;
+
+  h2 {
+    font-size: $font-xxm;
+    color: $gray;
+  }
+}
