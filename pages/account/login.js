@@ -1,19 +1,20 @@
 import Layout from '@/components/layout/Layout';
+import Input from '@/components/UI/Input';
 import styles from '@/styles/components/Form.module.scss';
+
 import { useState } from 'react';
 import { signIn } from 'next-auth/client';
+
 import { FaUser } from 'react-icons/fa';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { useRouter } from 'next/router';
+import { loginFormItems, loginFormStartingState } from 'utils/forms';
 
 export default function LoginPage() {
 	const router = useRouter();
 
-	const [formData, setFormData] = useState({
-		email: '',
-		password: ''
-	});
+	const [formData, setFormData] = useState(loginFormStartingState);
 
 	const handleChange = (e) => {
 		e.preventDefault();
@@ -53,6 +54,8 @@ export default function LoginPage() {
 		}
 	};
 
+	const loginFormElements = loginFormItems(formData, handleChange);
+
 	return (
 		<Layout title='Log in'>
 			<div className={styles.auth}>
@@ -62,26 +65,9 @@ export default function LoginPage() {
 
 				<ToastContainer position='top-left' />
 				<form onSubmit={handleSubmit}>
-					<div>
-						<label htmlFor='email'>e-mail</label>
-						<input
-							type='email'
-							name='email'
-							placeholder='Your e-mail address is...'
-							value={formData.email}
-							onChange={(e) => handleChange(e)}
-						/>
-					</div>
-					<div>
-						<label htmlFor='password'>Password</label>
-						<input
-							type='password'
-							name='password'
-							placeholder='Your password'
-							value={formData.password}
-							onChange={(e) => handleChange(e)}
-						/>
-					</div>
+					{loginFormElements.map((element) => (
+						<Input key={element.id} {...element} />
+					))}
 					<button type='submit'>Log in</button>
 				</form>
 			</div>

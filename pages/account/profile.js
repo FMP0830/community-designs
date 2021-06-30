@@ -51,7 +51,7 @@ export default function Page({ user }) {
 				</div>
 				<div className={styles.gallery}>
 					{designs.map((el) => {
-						return <DesignCard {...el} />;
+						return <DesignCard key={el.id} {...el} />;
 					})}
 				</div>
 			</>

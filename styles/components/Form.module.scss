@@ -99,7 +99,8 @@
 		}
 	}
 
-	form > button {
+	form > button,
+	a {
 		margin: 25px auto;
 		background-color: $cyan;
 		padding: 5px 10px;
@@ -110,6 +111,15 @@
 
 		&:hover {
 			background-color: $green;
+		}
+	}
+
+	a {
+		@include flex-center();
+		text-decoration: none;
+		background-color: $orange;
+		&:hover {
+			background-color: $lilac;
 		}
 	}
 }

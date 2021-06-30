@@ -1,10 +1,16 @@
 import Image from 'next/image';
 import Link from 'next/link';
-import styles from '@/styles/components/DesignCard.module.scss';
+import { useRouter } from 'next/router';
 
+import styles from '@/styles/components/DesignCard.module.scss';
 import PropTypes from 'prop-types';
 
 function DesignCard({ id, title, image, price, totalVotes, valuation }) {
+	const router = useRouter();
+
+	const inProfile = router.asPath === '/account/profile';
+	console.log(inProfile);
+
 	return (
 		<div className={styles.card}>
 			<Image src={image} width={150} height={150} />
@@ -19,9 +25,9 @@ function DesignCard({ id, title, image, price, totalVotes, valuation }) {
 					<Link href={`/designs/${id}`}>
 						<a>See more</a>
 					</Link>
-					<Link href={`/designs/edit/${id}`}>
+					{ inProfile && <Link href={`/designs/edit/${id}`}>
 						<a>Edit</a>
-					</Link>
+					</Link>}
 				</div>
 			</div>
 		</div>

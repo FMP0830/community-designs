@@ -1,15 +1,13 @@
-import User from '../../../models/User.model';
 import Design from '../../../models/Design.model';
 
 import dbConnect from './../../../utils/dbConnect';
 
 export default async function handler(req, res) {
-	
-	const { id } = req.body;
-
 	await dbConnect();
 
-	const user = await User.findById(id).populate('designs');
+	const allDesigns = await Design.find({
+		$and: [{ totalVotes: { $lt: 10 } }, { valuation: { $lt: 5 } }]
+	}).populate('author');
 
-	res.status(200).json(user);
+	res.status(200).json(allDesigns);
 }

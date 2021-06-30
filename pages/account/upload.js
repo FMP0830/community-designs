@@ -1,14 +1,18 @@
+import Link from 'next/link'
 import Layout from '@/components/layout/Layout';
+import Input from '@/components/UI/Input';
 import styles from '@/styles/pages/UploadDesign.module.scss';
+
 import { getSession } from 'next-auth/client';
 import { getUserData } from '@/services/User.service';
 import { useState } from 'react';
 import { useRouter } from 'next/router';
+
 import { FaCloudUploadAlt } from 'react-icons/fa';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import uploadFile from 'utils/fileupload';
-
+import { uploadDesignStartingState, uploadDesignItems } from 'utils/forms';
 import { createDesign } from '@/services/Design.service';
 
 import PropTypes from 'prop-types';
@@ -17,11 +21,7 @@ function UploadsPage(props) {
 	const router = useRouter();
 
 	const [image, setImage] = useState('');
-	const [formData, setFormData] = useState({
-		title: '',
-		description: '',
-		price: 0
-	});
+	const [formData, setFormData] = useState(uploadDesignStartingState);
 
 	const handleChange = (e) => {
 		e.preventDefault();
@@ -30,6 +30,10 @@ function UploadsPage(props) {
 			...formData,
 			[name]: value
 		});
+	};
+
+	const handleFile = (e) => {
+		setImage(e.target.files[0]);
 	};
 
 	const handleSubmit = async (e) => {
@@ -59,6 +63,13 @@ function UploadsPage(props) {
 		}
 	};
 
+	const uploadDesignElements = uploadDesignItems(
+		formData,
+		handleChange,
+		image,
+		handleFile
+	);
+
 	return (
 		<Layout title='Upload a new design'>
 			<div className={styles.upload}>
@@ -68,45 +79,12 @@ function UploadsPage(props) {
 
 				<ToastContainer position='top-left' />
 				<form className={styles.form} onSubmit={handleSubmit}>
-					<div>
-						<label htmlFor='title'>Title</label>
-						<input
-							type='text'
-							name='title'
-							placeholder="This design's title"
-							value={formData.title}
-							onChange={(e) => handleChange(e)}
-						/>
-					</div>
-					<div>
-						<label htmlFor='description'>Description</label>
-						<input
-							type='text'
-							name='description'
-							placeholder='What is this piece about?'
-							value={formData.description}
-							onChange={(e) => handleChange(e)}
-						/>
-					</div>
-					<div>
-						<label htmlFor='price'>Price</label>
-						<input
-							type='number'
-							min={0}
-							name='price'
-							placeholder='Your price'
-							value={formData.price}
-							onChange={(e) => handleChange(e)}
-						/>
-					</div>
-					<div>
-						<label htmlFor='image'>Choose your image</label>
-						<input
-							type='file'
-							name='image'
-							onChange={(e) => setImage(e.target.files[0])}
-						/>
-					</div>
+					{uploadDesignElements.map((element) => (
+						<Input key={element.id} {...element} />
+					))}
+					<Link href='/account/profile'>
+						<a>Back</a>
+					</Link>
 					<button type='submit'>Create design</button>
 				</form>
 			</div>

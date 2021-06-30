@@ -1,7 +1,11 @@
+import getConfig from 'next/config';
+const { publicRuntimeConfig } = getConfig();
+const { API_URL } = publicRuntimeConfig;
+
 export async function createUser(body) {
 	console.log(body);
 
-	const data = await fetch('http://localhost:3000/api/auth/signup', {
+	const data = await fetch(`${API_URL}/auth/signup`, {
 		method: 'POST',
 		body: JSON.stringify(body),
 		headers: {
@@ -13,15 +17,15 @@ export async function createUser(body) {
 }
 
 export async function updateUser(body) {
-	console.log(body)
+	console.log(body);
 
-	const data = await fetch('http://localhost:3000/api/auth/edituser', {
+	const data = await fetch(`${API_URL}/auth/edituser`, {
 		method: 'PUT',
 		body: JSON.stringify(body),
 		headers: {
 			'Content-type': 'application/json'
 		}
-	})
+	});
 
-	return await data.json()
+	return await data.json();
 }
