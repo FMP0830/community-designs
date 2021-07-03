@@ -7,7 +7,7 @@ function DesignVote({ click }) {
 	return (
 		<div className={styles.voteControls}>
 			<h1>Do you want to vote this product?</h1>
-			<div class={styles.thumbs}>
+			<div className={styles.thumbs}>
 				<FaThumbsDown
 					size={100}
 					className={styles.down}

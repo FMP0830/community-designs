@@ -1,6 +1,6 @@
 module.exports = {
 	images: {
-		domains: ['res.cloudinary.com']
+		domains: ['res.cloudinary.com', 'i.pinimg.com']
 	},
 	publicRuntimeConfig: {
 		CLOUDINARY_NAME: process.env.NEXT_PUBLIC_CLOUDINARY_NAME,

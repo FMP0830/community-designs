@@ -44,6 +44,10 @@
 	@include flex($direction, center, space-between);
 }
 
+@mixin flex-evenly($direction: null, $wrap: null) {
+	@include flex($direction, center, space-evenly);
+}
+
 @mixin main-page-cards($color1, $color2, $num: 1) {
 	background-color: rgba($color1, $num);
 	transition: background-color 0.3s;

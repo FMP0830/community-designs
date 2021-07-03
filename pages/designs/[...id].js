@@ -1,17 +1,18 @@
 import Layout from '@/components/layout/Layout';
 import styles from '@/styles/components/DesignPage/DesignPage.module.scss';
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useContext } from 'react';
 import { useRouter } from 'next/router';
 import { useSession } from 'next-auth/client';
+import CartContext from '@/context/cart-context';
 
 import { getDesignData, voteDesign } from '@/services/Design.service';
 import DesignMessage from '@/components/DesignItem/DesignMessage';
-
-import PropTypes from 'prop-types';
 import DesignInfo from '@/components/DesignItem/DesignInfo';
 import DesignVote from '@/components/DesignItem/DesignVote';
+import DesignBuy from '@/components/DesignItem/DesignBuy';
 
+import PropTypes from 'prop-types';
 function DesignDetailsPage({ design }) {
 	const router = useRouter();
 
@@ -20,6 +21,12 @@ function DesignDetailsPage({ design }) {
 	const [canVote, setCanVote] = useState(false);
 	const [hasVoted, setHasVoted] = useState(false);
 	const [canBuy, setCanBuy] = useState(false);
+
+	const cartCtx = useContext(CartContext);
+
+	const addToCart = (item) => {
+		cartCtx.addItem(item);
+	};
 
 	function checkStatus() {
 		if (session) {
@@ -83,7 +90,7 @@ function DesignDetailsPage({ design }) {
 					<DesignMessage text='You have already voted this design!' />
 				)}
 				{canVote && <DesignVote click={submitVote} />}
-				{canBuy && <p>You can buy</p>}
+				{canBuy && <DesignBuy addToCart={addToCart} {...design} />}
 			</div>
 		</Layout>
 	);

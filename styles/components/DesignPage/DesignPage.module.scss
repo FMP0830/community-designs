@@ -46,7 +46,7 @@
 
 			.designAuthor {
 				width: 20%;
-				@include flex-between(column);
+				@include flex-evenly(column);
 
 				div {
 					@include flex-between();

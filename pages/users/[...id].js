@@ -1,10 +1,9 @@
 import PropTypes from 'prop-types';
 
 import Image from 'next/image';
-import Link from 'next/link';
-
 import Layout from '@/components/layout/Layout';
 import styles from '@/styles/pages/ProfilePage.module.scss';
+import DesignCard from '@/components/UI/DesignCard';
 
 import { getUserData } from '@/services/User.service';
 
@@ -23,7 +22,11 @@ function UserPublicProfile({ user }) {
 						<span>Com points: {com_points}</span>
 					</div>
 				</div>
-				<div className={styles.gallery}></div>
+				<div className={styles.gallery}>
+					{designs.map((el) => {
+						return <DesignCard key={el.id} {...el} />;
+					})}
+				</div>
 			</>
 		</Layout>
 	);

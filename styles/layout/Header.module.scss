@@ -43,6 +43,10 @@
 					color: $dark;
 				}
 			}
+
+			.cart {
+				@include flex-around();
+			}
 		}
 
 		.buy {

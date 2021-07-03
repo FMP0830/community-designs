@@ -14,12 +14,13 @@
 	div > img {
 		width: 200px;
 		height: 200px;
+		cursor: pointer;
 	}
 
 	.content {
 		@include flex-center(column);
 		padding: 15px 0;
-    width: 60%;
+		width: 60%;
 
 		h3,
 		h4 {
@@ -32,8 +33,8 @@
 		}
 
 		div {
-      margin: 5px;
-      width: 100%;
+			margin: 5px;
+			width: 100%;
 			@include flex-center;
 		}
 	}

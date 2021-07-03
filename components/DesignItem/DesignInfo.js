@@ -3,6 +3,9 @@ import Link from 'next/link';
 
 import styles from '@/styles/components/DesignPage/DesignPage.module.scss';
 
+import Zoom from 'react-medium-image-zoom';
+import 'react-medium-image-zoom/dist/styles.css';
+
 import PropTypes from 'prop-types';
 
 function DesignInfo({
@@ -16,7 +19,9 @@ function DesignInfo({
 }) {
 	return (
 		<div className={styles.info}>
-			<Image src={image} height='100%' width='100%' />
+			<Zoom zoomMargin={150}>
+				<Image src={image} height={2000} width={2000} />
+			</Zoom>
 			<div className={styles.text}>
 				<div className={styles.designInfo}>
 					<h2>{title}</h2>

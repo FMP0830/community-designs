@@ -1,10 +1,15 @@
 import Link from 'next/link';
 import Image from 'next/image';
 import { signOut, useSession } from 'next-auth/client';
+import { useContext } from 'react';
+import CartContext from '@/context/cart-context';
 
+import { FaShoppingCart } from 'react-icons/fa';
 import styles from '@/styles/layout/Header.module.scss';
 
 export default function Header({ user }) {
+	const cartCtx = useContext(CartContext);
+
 	const [session, loading] = useSession();
 
 	return (
@@ -31,6 +36,15 @@ export default function Header({ user }) {
 						<li>
 							<Link href='/account/profile'>
 								<a>{session.user.username}</a>
+							</Link>
+						</li>
+						<li>
+							<Link href='/account/cart'>
+								<a className={styles.cart}>
+									{cartCtx.totalAmount}€
+									<FaShoppingCart />
+									{cartCtx.items.length}
+								</a>
 							</Link>
 						</li>
 						<li>

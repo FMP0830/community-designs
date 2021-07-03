@@ -2,11 +2,12 @@
 @import 'styles/helpers/mixins';
 
 .container {
-  @include flex-between(row, wrap);
-  background-color: $light;
-  width: 95%;
-  margin: 15px auto;
-  min-height: 80vh;
-  border-radius: 15px;
-  box-shadow: 5px 5px 10px rgba($dark, 0.2);
+	@include flex-between(row, wrap);
+	flex-wrap: wrap;
+	background-color: $light;
+	width: 95%;
+	margin: 15px auto;
+	min-height: 80vh;
+	border-radius: 15px;
+	box-shadow: 5px 5px 10px rgba($dark, 0.2);
 }

@@ -1,0 +1,46 @@
+@import 'styles/theme/colors';
+@import 'styles/theme/font-sizes';
+@import 'styles/helpers/mixins';
+
+.buy {
+	padding: 25px;
+	border-radius: 15px;
+
+	form {
+		width: 100%;
+		@include flex-between;
+
+		p {
+			font-size: $font-l;
+		}
+
+		input {
+			width: 80px;
+			margin: 0 50px;
+			padding: 10px;
+			font-size: $font-mm;
+			border: 3px solid $cyan;
+			border-radius: 15px;
+      text-align: center;
+
+			&:focus,
+			&:active {
+				outline: none;
+				border: 3px solid $magenta;
+			}
+		}
+
+		button {
+			background-color: $cyan;
+			color: $light;
+			border: none;
+			padding: 15px 25px;
+			font-size: $font-mm;
+			border-radius: 15px;
+
+			&:hover {
+				background-color: magenta;
+			}
+		}
+	}
+}
