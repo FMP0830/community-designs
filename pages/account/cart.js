@@ -7,34 +7,79 @@ import styles from '@/styles/pages/CartPage.module.scss';
 
 import { FaTrash } from 'react-icons/fa';
 import { useTable } from 'react-table';
-import { useContext, useMemo } from 'react';
-import CartContext from '@/context/cart-context';
+import { useMemo } from 'react';
+import { useShoppingCart } from 'use-shopping-cart';
 
-function cart(props) {
-	const cartCtx = useContext(CartContext);
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
-	//const data = useMemo(() => cartCtx.items, []);
-	const data = cartCtx.items;
+import cartCheckout from '@/services/Cart.service';
 
-	const clearCart = (e) => {
-		e.preventDefault();
-		cartCtx.clearCart();
+import { getUserData } from '@/services/User.service';
+import { getSession } from 'next-auth/client';
+function CartPage(props) {
+	const {
+		cartCount,
+		totalPrice,
+		cartDetails,
+		incrementItem,
+		decrementItem,
+		removeItem,
+		clearCart,
+		redirectToCheckout
+	} = useShoppingCart();
+
+	
+
+	const data = Object.values(cartDetails);
+
+	const handleRemove = (value) => {
+		removeItem(value);
+		toast.dark('Item removed from cart');
 	};
-	console.log(data);
+
+	const handleClearCart = (e) => {
+		e.preventDefault();
+
+		console.log('Trying to clear the cart');
+		if (totalPrice !== 0) {
+			clearCart();
+			toast.dark('Cart cleared!');
+		} else {
+			toast.info('Cannot clear an empty cart!');
+		}
+	};
+
+	const handleCheckout = async () => {
+		console.log('handling checkout');
+
+		const session = await cartCheckout(cartDetails);
+
+		if (session.error) console.log(session.error);
+
+		if (session) {
+			toast.info('Redirecting you to payment, please wait a second');
+			redirectToCheckout({ sessionId: session.id });
+		}
+
+		return session;
+	};
 
 	const columns = useMemo(
 		() => [
 			{
 				Header: 'Nº',
-				accessor: 'amount'
+				accessor: 'quantity'
 			},
 			{
 				Header: 'Price',
-				accessor: 'price'
+				accessor: 'price',
+				Cell: ({ cell: { value } }) => <p>{value} €</p>
 			},
 			{
 				Header: 'Total',
-				accessor: 'totalPrice'
+				accessor: 'value',
+				Cell: ({ cell: { value } }) => <p>{value} €</p>
 			},
 			{
 				Header: 'Author',
@@ -56,12 +101,14 @@ function cart(props) {
 				Header: 'Options',
 				accessor: 'id',
 				Cell: ({ cell: { value } }) => (
-					<>
+					<div className={styles.options}>
+						<p onClick={() => incrementItem(value, 1)}> +1 </p>
+						<p onClick={() => decrementItem(value, 1)}> -1 </p>
 						<Link href={`/designs/${value}`}>
 							<a>Back to Product</a>
 						</Link>{' '}
-						<FaTrash onClick={() => cartCtx.removeItem(value)} />
-					</>
+						<FaTrash onClick={() => handleRemove(value)} />
+					</div>
 				)
 			}
 		],
@@ -103,18 +150,38 @@ function cart(props) {
 					</tbody>
 				</table>
 				<div className={styles.purchase}>
-					<button onClick={clearCart} className={styles.clear}>
+					<ToastContainer position='bottom-right' />
+					<button onClick={handleClearCart} className={styles.clear}>
 						Clear
 					</button>
-					<h2>Items: {cartCtx.items.length}</h2>
-					<h2>Price: {cartCtx.totalAmount}€</h2>
-					<button>Purchase</button>
+					<h2>Items: {cartCount}</h2>
+					<h2>Price: {totalPrice}€</h2>
+					<button onClick={handleCheckout}>Purchase</button>
 				</div>
 			</div>
 		</Layout>
 	);
 }
 
-cart.propTypes = {};
+CartPage.propTypes = {};
 
-export default cart;
+export default CartPage;
+
+export async function getServerSideProps(ctx) {
+	const session = await getSession(ctx);
+
+	if (!session) {
+		ctx.res.writeHead(302, { Location: '/' });
+		ctx.res.end();
+		return {};
+	} else {
+		const data = await getUserData(session.user.id);
+		console.log(data);
+
+		return {
+			props: {
+				user: data
+			}
+		};
+	}
+}

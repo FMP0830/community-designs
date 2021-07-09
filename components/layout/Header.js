@@ -6,9 +6,11 @@ import CartContext from '@/context/cart-context';
 
 import { FaShoppingCart } from 'react-icons/fa';
 import styles from '@/styles/layout/Header.module.scss';
+import { useShoppingCart } from 'use-shopping-cart';
 
 export default function Header({ user }) {
-	const cartCtx = useContext(CartContext);
+
+	const { cartCount, totalPrice } = useShoppingCart();
 
 	const [session, loading] = useSession();
 
@@ -41,9 +43,9 @@ export default function Header({ user }) {
 						<li>
 							<Link href='/account/cart'>
 								<a className={styles.cart}>
-									{cartCtx.totalAmount}€
+									{totalPrice}€
 									<FaShoppingCart />
-									{cartCtx.items.length}
+									{cartCount}
 								</a>
 							</Link>
 						</li>

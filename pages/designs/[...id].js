@@ -22,12 +22,6 @@ function DesignDetailsPage({ design }) {
 	const [hasVoted, setHasVoted] = useState(false);
 	const [canBuy, setCanBuy] = useState(false);
 
-	const cartCtx = useContext(CartContext);
-
-	const addToCart = (item) => {
-		cartCtx.addItem(item);
-	};
-
 	function checkStatus() {
 		if (session) {
 			if (session.user.id === design.author.id) {
@@ -90,7 +84,7 @@ function DesignDetailsPage({ design }) {
 					<DesignMessage text='You have already voted this design!' />
 				)}
 				{canVote && <DesignVote click={submitVote} />}
-				{canBuy && <DesignBuy addToCart={addToCart} {...design} />}
+				{canBuy && <DesignBuy {...design} />}
 			</div>
 		</Layout>
 	);

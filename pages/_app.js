@@ -6,7 +6,6 @@ const { STRIPE_PK } = publicRuntimeConfig;
 import '@/styles/base/_reset.scss';
 import '@/styles/base/_base.scss';
 import { Provider } from 'next-auth/client';
-import { CartProvider as CartCtx } from './../context/cart-provider';
 import { CartProvider } from 'use-shopping-cart';
 import { loadStripe } from '@stripe/stripe-js';
 
@@ -18,9 +17,7 @@ export default function MyApp({ Component, pageProps }) {
 	return (
 		<Provider session={pageProps.session}>
 			<CartProvider mode='checkout-session' stripe={stripePr} currency='EUR'>
-				<CartCtx>
-					<Component {...pageProps} />
-				</CartCtx>
+				<Component {...pageProps} />
 			</CartProvider>
 		</Provider>
 	);

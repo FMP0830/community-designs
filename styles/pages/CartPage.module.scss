@@ -30,7 +30,7 @@
 				top: 20px;
 			}
 
-			svg{
+			svg {
 				margin-left: 25px;
 			}
 		}
@@ -57,7 +57,7 @@
 
 	.purchase {
 		@include flex-between;
-		width: 40%;
+		width: 45vw;
 		height: 10vh;
 		padding: 10px;
 
@@ -86,5 +86,21 @@
 				background-color: $dark;
 			}
 		}
+	}
+}
+
+.options {
+	@include flex-around;
+	width: 100%;
+
+	p {
+		cursor: pointer;
+		user-select: none;
+		border: 1px solid $dark;
+		background-color: $dark;
+		color: $light;
+		border-radius: 5px;
+		padding: 5px;
+		width: 10%;
 	}
 }

@@ -6,7 +6,18 @@ export default function Footer() {
 	return (
 		<footer className={styles.footer}>
 			<p>
-				Developed by Aleix Badia & Fede Muniente &#945; Ironhack Barcelona
+				Developed by{' '}
+				<a href='https://www.github.com/aleixbadia' target='_blank'>
+					Aleix Badia
+				</a>{' '}
+				&{' '}
+				<a href='https://www.github.com/fmp0830' target='_blank'>
+					Fede Muniente
+				</a>{' '}
+				&#945;{' '}
+				<a href='https://www.ironhack.com/en/barcelona' target='_blank'>
+					Ironhack Barcelona
+				</a>{' '}
 				&copy;
 			</p>
 
