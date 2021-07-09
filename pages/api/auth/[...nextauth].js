@@ -32,7 +32,9 @@ const options = {
 				);
 
 				if (!validPassword) {
-					throw new Error("can't log in!");
+					throw new Error(
+						"Can't log in, please check your email and password!"
+					);
 				}
 
 				//NextAuth requires you to return an object if credentials are valid

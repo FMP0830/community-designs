@@ -1,9 +1,20 @@
 import { useState } from 'react';
-import styles from '@/styles/components/DesignPage/BuyControls.module.scss'
+import styles from '@/styles/components/DesignPage/BuyControls.module.scss';
 import PropTypes from 'prop-types';
+import { useShoppingCart } from 'use-shopping-cart';
 
-function DesignBuy({ title, price, description, author, image, addToCart }) {
+function DesignBuy({
+	id,
+	title,
+	price,
+	description,
+	author,
+	image,
+	addToCart
+}) {
 	const [amount, setAmount] = useState(1);
+
+	const { addItem } = useShoppingCart()
 
 	const changeHandler = (e) => {
 		e.preventDefault();
@@ -14,6 +25,7 @@ function DesignBuy({ title, price, description, author, image, addToCart }) {
 		e.preventDefault();
 
 		const newCartItem = {
+			id,
 			title,
 			description,
 			price,

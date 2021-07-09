@@ -13,6 +13,8 @@ export async function createUser(body) {
 		}
 	});
 
+	if (!data) console.log('something went wrong');
+
 	return await data.json();
 }
 

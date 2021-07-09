@@ -12,7 +12,8 @@ const designSchema = new Schema(
 			{ type: mongoose.Schema.Types.ObjectId, default: [], ref: 'User' }
 		],
 		totalVotes: { type: Number, default: 0 },
-		valuation: { type: Number, default: 0 }
+		valuation: { type: Number, default: 0 },
+		timesSold: { type: Number, default: 0 }
 	},
 	{
 		timestamps: true,

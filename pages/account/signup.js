@@ -14,7 +14,7 @@ import { signupFormItems, signupFormStartingState } from 'utils/forms';
 
 export default function SignupPage() {
 	const router = useRouter();
-	
+
 	const [avatar, setAvatar] = useState('');
 	const [formData, setFormData] = useState(signupFormStartingState);
 
@@ -29,8 +29,8 @@ export default function SignupPage() {
 	};
 
 	const handleFile = (e) => {
-		setAvatar(e.target.files[0])
-	}
+		setAvatar(e.target.files[0]);
+	};
 
 	const handleSubmit = async (e) => {
 		e.preventDefault();
@@ -60,13 +60,23 @@ export default function SignupPage() {
 				photo: uploadedImgUrl
 			};
 
-			toast.success('Creating the user');
-			const newUser = await createUser(newUserData);
-			if (newUser) router.push('/account/login');
+			toast.info('Creating the user');
+			const creation = await createUser(newUserData);
+
+			if (creation.message) {
+				toast.error("Are you sure you haven't forgotten your password?");
+			} else {
+				toast.success('Welcome aboard!');
+				router.push('/account/login');
+			}
 		}
 	};
 
-	const signupFormElements = signupFormItems(formData, handleChange, handleFile)
+	const signupFormElements = signupFormItems(
+		formData,
+		handleChange,
+		handleFile
+	);
 
 	return (
 		<Layout title='Create an account'>

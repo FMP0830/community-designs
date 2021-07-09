@@ -29,6 +29,10 @@
 			div {
 				top: 20px;
 			}
+
+			svg{
+				margin-left: 25px;
+			}
 		}
 
 		thead {
@@ -47,6 +51,39 @@
 			tr {
 				border-bottom: 1px solid $gray;
 				font-size: $font-mm;
+			}
+		}
+	}
+
+	.purchase {
+		@include flex-between;
+		width: 40%;
+		height: 10vh;
+		padding: 10px;
+
+		h2,
+		button {
+			font-size: $font-xm;
+		}
+
+		button {
+			background-color: $cyan;
+			color: $light;
+			padding: 10px 15px;
+			border-radius: 15px;
+			transition: background-color 0.3s;
+
+			&:hover {
+				background-color: $magenta;
+			}
+		}
+
+		.clear {
+			background-color: $red;
+			transition: background-color 0.3s;
+
+			&:hover {
+				background-color: $dark;
 			}
 		}
 	}

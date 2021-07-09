@@ -6,6 +6,7 @@
     "start": "next start"
   },
   "dependencies": {
+    "@stripe/stripe-js": "^1.15.1",
     "bcryptjs": "^2.4.3",
     "cloudinary": "^1.26.1",
     "mongodb": "^3.6.9",
@@ -20,6 +21,7 @@
     "react-table": "^7.7.0",
     "react-toastify": "^7.0.4",
     "sass": "1.26.3",
+    "use-shopping-cart": "^2.4.3",
     "uuid": "^8.3.2"
   },
   "license": "MIT",

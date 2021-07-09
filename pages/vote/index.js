@@ -31,7 +31,7 @@ function VoteProductsPage({ designs }) {
 				sortedDesigns.sort((a, b) => b.title.localeCompare(a.title));
 			} else if (category === 'author') {
 				sortedDesigns.sort((a, b) =>
-					a.author.username.localeCompare(b.author.username)
+					b.author.username.localeCompare(a.author.username)
 				);
 			} else {
 				sortedDesigns.sort((a, b) => b[category] - a[category]);

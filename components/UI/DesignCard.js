@@ -12,7 +12,8 @@ function DesignCard({
 	image,
 	price,
 	totalVotes,
-	valuation
+	valuation,
+	timesSold
 }) {
 	const router = useRouter();
 
@@ -34,6 +35,7 @@ function DesignCard({
 					<span>Score: {valuation} </span>
 					<span>Votes: {totalVotes} </span>
 				</h4>
+				{timesSold > 0 && <h4>Items sold: {timesSold} </h4>}
 				<div>
 					<Link href={`/designs/${id}`}>
 						<a>See more</a>

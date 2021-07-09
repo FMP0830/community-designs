@@ -39,7 +39,7 @@ export default function LoginPage() {
 		} else if (password.length < 3) {
 			toast.error('Password is not correct!');
 		} else {
-			toast.success('Logging in');
+			toast.info('Logging in');
 			const signin = await signIn('credentials', {
 				redirect: false,
 				email: email,
@@ -48,7 +48,10 @@ export default function LoginPage() {
 
 			console.log(signin);
 
-			if (!signin.error) {
+			if (signin.error) {
+				toast.error(signin.error);
+			} else {
+				toast.success(`Welcome, ${email}`);
 				router.replace('/account/profile');
 			}
 		}
