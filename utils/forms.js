@@ -144,7 +144,7 @@ export function signupFormItems(formData, handleChange, handleFile) {
 }
 
 export const loginFormStartingState = {
-	username: '',
+	email: '',
 	password: ''
 };
 
@@ -395,6 +395,52 @@ export function updateDesignItems(formData, handleChange, image, handleFile) {
 			label: 'Choose your image',
 			type: 'file',
 			change: handleFile
+		}
+	];
+}
+
+export const resetPasswordStartingState = {
+	email: ''
+};
+
+export function updateResetPassword(formData, handleChange) {
+	return [
+		{
+			id: '60ca0701-fc46-4501-943b-79666f37518b',
+			name: 'email',
+			label: 'Email',
+			type: 'text',
+			placeholder: 'your email',
+			value: formData.email,
+			change: handleChange
+		}
+	];
+}
+
+export const resetPwdStartingState = {
+	password: '',
+	pwdValidation: ''
+};
+
+export function resetPassword(formData, handleChange) {
+	return [
+		{
+			id: '99295a4e-ef55-4ada-ad59-3fa21bfd2ce4',
+			name: 'password',
+			label: 'Password',
+			type: 'password',
+			placeholder: 'Your new password',
+			value: formData.password,
+			change: handleChange
+		},
+		{
+			id: 'eb64a342-c95d-4af2-9457-b1f8cbae426b',
+			name: 'pwdValidation',
+			label: 'Repeat your password',
+			type: 'password',
+			placeholder: 'Repeat your password',
+			value: formData.pwdValidation,
+			change: handleChange
 		}
 	];
 }

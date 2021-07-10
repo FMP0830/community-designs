@@ -1,6 +1,7 @@
 import User from './../../../models/User.model';
 import dbConnect from './../../../utils/dbConnect';
 import { hashPassword } from './../../../utils/Bcrypt';
+import { transporter, welcomeMail } from '@/utils/nodemailer';
 
 async function handler(req, res) {
 	//Validate http request method
@@ -73,6 +74,7 @@ async function handler(req, res) {
 		username,
 		email,
 		password: encryptedPassword,
+		active: false,
 		firstName,
 		lastName,
 		birthdate,
@@ -80,7 +82,16 @@ async function handler(req, res) {
 		address
 	});
 
-	if (newUser) res.status(201).json({ success: true, user: newUser });
+	if (newUser) {
+		const helloMail = welcomeMail(newUser);
+	
+		await transporter.sendMail(helloMail, (err, info) => {
+			if (err) console.log(err);
+			else console.log(info);
+		});
+
+		res.status(201).json({ success: true, user: newUser });
+	}
 	if (!newUser) res.status(400).json({ success: false });
 }
 

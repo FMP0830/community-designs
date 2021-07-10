@@ -16,6 +16,7 @@ const userSchema = new Schema(
 				'Please fill a valid password'
 			]
 		},
+		active: { type: Boolean, default: false },
 		firstName: { type: String, required: true },
 		lastName: { type: String, required: true },
 		birthdate: { type: String, required: true },

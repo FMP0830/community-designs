@@ -1,3 +1,5 @@
+import Link from 'next/link';
+
 import Layout from '@/components/layout/Layout';
 import Input from '@/components/UI/Input';
 import styles from '@/styles/components/Form.module.scss';
@@ -73,6 +75,13 @@ export default function LoginPage() {
 					))}
 					<button type='submit'>Log in</button>
 				</form>
+
+				<p>
+					Forgot your password?{' '}
+					<Link href='/account/password-reset'>
+						<span>click here</span>
+					</Link>
+				</p>
 			</div>
 		</Layout>
 	);

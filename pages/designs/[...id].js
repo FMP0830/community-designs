@@ -18,20 +18,28 @@ function DesignDetailsPage({ design }) {
 
 	const [session, loading] = useSession();
 	const [isAuthor, setIsAuthor] = useState(false);
+	const [isInactive, setIsInactive] = useState(false);
 	const [canVote, setCanVote] = useState(false);
 	const [hasVoted, setHasVoted] = useState(false);
 	const [canBuy, setCanBuy] = useState(false);
 
 	function checkStatus() {
 		if (session) {
+			console.log(session);
 			if (session.user.id === design.author.id) {
 				setIsAuthor(true);
 				return;
 			}
 
+			if (session.user.active === false) {
+				setIsInactive(true);
+				return;
+			}
+
 			if (
 				design.totalVotes >= 10 &&
-				design.totalVotes / design.valuation >= 0.5
+				design.totalVotes / design.valuation >= 0.5 &&
+				session.user.active === true
 			) {
 				setCanBuy(true);
 				return;
@@ -42,12 +50,19 @@ function DesignDetailsPage({ design }) {
 				return;
 			}
 
+			if (session.user.active === false) {
+				setCanVote(false);
+				return;
+			}
+
 			setCanVote(true);
 		}
 
 		console.log(
 			'session',
 			session,
+			'isInactive',
+			isInactive,
 			'isAuthor',
 			isAuthor,
 			'canVote',
@@ -76,6 +91,9 @@ function DesignDetailsPage({ design }) {
 				<DesignInfo {...design} />
 				{!session && (
 					<DesignMessage text='You have to log in to buy or vote products!' />
+				)}
+				{isInactive && (
+					<DesignMessage text='You have to activate your account to buy or vote products!' />
 				)}
 				{isAuthor && (
 					<DesignMessage text="You are this design's author, so you can't vote or buy it" />

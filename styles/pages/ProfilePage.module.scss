@@ -95,3 +95,29 @@
 	display: flex;
 	flex-wrap: wrap;
 }
+
+.info {
+	background-color: $light;
+	box-shadow: 5px 10px 15px rgba($dark, 0.3);
+	border-radius: 25px;
+	height: 50vh;
+	width: 50%;
+	padding: 50px 0;
+
+	@include flex-around(column);
+
+	h1,
+	h2,
+	h3 {
+		font-size: $font-xm;
+	}
+
+	svg {
+		font-size: $font-xxl;
+		cursor: pointer;
+
+		&:hover {
+			color: $cyan;
+		}
+	}
+}

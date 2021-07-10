@@ -7,6 +7,7 @@
 	padding: 30px;
 	box-shadow: 0px 10px 20px 0px rgba(50, 50, 50, 0.52);
 	border-radius: 15px;
+	text-align: center;
 
 	h1 {
 		font-size: 2rem;
@@ -120,6 +121,19 @@
 		background-color: $orange;
 		&:hover {
 			background-color: $lilac;
+		}
+	}
+
+	p {
+		margin-top: 35px;
+
+		span {
+			cursor: pointer;
+			color: $magenta;
+
+			&:hover {
+				color: $cyan;
+			}
 		}
 	}
 }

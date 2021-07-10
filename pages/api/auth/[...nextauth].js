@@ -46,7 +46,8 @@ const options = {
 					lastName: user.lastName,
 					address: user.address,
 					birthday: user.birthday,
-					photo: user.photo
+					photo: user.photo,
+					active: user.active
 				};
 			}
 		})

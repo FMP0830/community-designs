@@ -26,7 +26,7 @@
 
 		li {
 			height: 60px;
-			width: 100px;
+			min-width: 100px;
 			transition: background-color 0.3s;
 			@include flex-center();
 
@@ -38,7 +38,9 @@
 
 			a {
 				@extend %nav-item;
-				width: 100px;
+				min-width: 100px;
+				width: auto;
+				padding: 0 10px;
 				&:hover {
 					color: $dark;
 				}
