@@ -13,7 +13,7 @@ import { useShoppingCart } from 'use-shopping-cart';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
-import cartCheckout from '@/services/Cart.service';
+import { cartCheckout } from '@/services/Cart.service';
 
 import { getUserData } from '@/services/User.service';
 import { getSession } from 'next-auth/client';
@@ -28,8 +28,6 @@ function CartPage(props) {
 		clearCart,
 		redirectToCheckout
 	} = useShoppingCart();
-
-	
 
 	const data = Object.values(cartDetails);
 

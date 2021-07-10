@@ -1,4 +1,5 @@
 import PropTypes from 'prop-types';
+import { useEffect } from 'react';
 
 import Layout from '@/components/layout/Layout';
 
@@ -7,27 +8,40 @@ import { useShoppingCart } from 'use-shopping-cart';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
+import { useRouter } from 'next/router';
 import { getUserData } from '@/services/User.service';
 import { getSession } from 'next-auth/client';
 
-function CheckoutPage({ user }) {
-	const {
-		cartCount,
-		totalPrice,
-		cartDetails,
-		clearCart,
-	} = useShoppingCart();
+import { createPurchase } from '@/services/Cart.service';
 
-	const purchase = {
-		numberOfItems: cartCount,
-		totalPrice,
-		items_detail: Object.values(cartDetails),
-		items_id: Object.keys(cartDetails),
-		userPurchasing: user.id,
-		userSelling: Object.values(cartDetails).map((obj) => obj.author.id)
+function CheckoutPage({ user }) {
+
+  const router = useRouter();
+
+	const { cartCount, totalPrice, cartDetails, clearCart } = useShoppingCart();
+
+	const handleCheckout = async () => {
+
+		const purchase = {
+			numberOfItems: cartCount,
+			totalPrice,
+			items_detail: Object.values(cartDetails),
+			items_id: Object.keys(cartDetails),
+			userPurchasing: user.id,
+			userSelling: Object.values(cartDetails).map((obj) => obj.author.id)
+		};
+
+		const newPurchase = await createPurchase(purchase)
+
+    if(newPurchase.error) toast.error(newPurchase.error)
+    if(newPurchase && !newPurchase.error) {
+      //if(cartCount > 0) clearCart()
+      
+      console.log(newPurschase)
+    }
 	};
 
-	console.log(purchase);
+	useEffect(() => handleCheckout(), []);
 
 	return (
 		<Layout title='Checkout'>

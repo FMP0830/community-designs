@@ -9,10 +9,10 @@ const purchaseSchema = new Schema(
 		],
 		numberOfItems: { type: Number, min: 0, default: 0 },
 		totalPrice: { type: Number, min: 0, default: 0 },
-    item_detail: { type: Object },
+		item_detail: { type: Object },
 		item_id: [
 			{ type: mongoose.Schema.Types.ObjectId, default: [], ref: 'Design' }
-		],
+		]
 	},
 	{
 		timestamps: true,
@@ -27,4 +27,5 @@ const purchaseSchema = new Schema(
 	}
 );
 
-export default mongoose.models.Purchase || mongoose.model('Design', purchaseSchema);
+export default mongoose.models.Purchase ||
+	mongoose.model('Purchase', purchaseSchema);

@@ -3,11 +3,13 @@ import dbConnect from './../../../utils/dbConnect';
 import { hashPassword } from './../../../utils/Bcrypt';
 
 async function handler(req, res) {
+	//Validate http request method
 	if (req.method !== 'POST') {
 		res.status(403).json({ message: 'Bad request' });
 		return;
 	}
 
+	//Validate data sent through body
 	let emptyData;
 
 	for (let entry in req.body) {
@@ -16,6 +18,7 @@ async function handler(req, res) {
 		}
 	}
 
+	//Check data format
 	if (
 		emptyData ||
 		!req.body.email.includes('@') ||
@@ -42,6 +45,7 @@ async function handler(req, res) {
 		photo
 	} = req.body;
 
+	//Create address object
 	const address = {
 		street,
 		block,
@@ -51,10 +55,12 @@ async function handler(req, res) {
 		postcode
 	};
 
+	//Encrypt password
 	const encryptedPassword = await hashPassword(password);
 
 	await dbConnect();
 
+	//Check if user exists
 	const existingUser = await User.findOne({ email: email });
 
 	if (existingUser) {
@@ -62,6 +68,7 @@ async function handler(req, res) {
 		return;
 	}
 
+	//Create the new user
 	const newUser = await User.create({
 		username,
 		email,

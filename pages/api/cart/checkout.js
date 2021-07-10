@@ -9,18 +9,22 @@ const validateCartItems =
 	require('use-shopping-cart/src/serverUtil').validateCartItems;
 
 async function handler(req, res) {
-	console.log(STRIPE_SK);
 	try {
+
+		//Validate req method
 		if (req.method !== 'POST') {
 			res.status(403).json({ message: 'Bad request' });
 			return;
 		}
 
+		//Check URL origin
 		const origin =
 			process.env.NODE_ENV === 'production'
 				? req.headers.origin
 				: 'http://localhost:3000';
 
+
+		//Create the cartItems and format them for Stripe 
 		const cartItems = [];
 
 		for (let item in req.body) {
@@ -40,8 +44,7 @@ async function handler(req, res) {
 			cartItems.push(itemObj);
 		}
 
-		console.log(cartItems);
-
+		//Configure Stripe params
 		const params = {
 			submit_type: 'pay',
 			payment_method_types: ['card'],
@@ -52,13 +55,16 @@ async function handler(req, res) {
 			mode: 'payment'
 		};
 
-		console.log(params);
 
+		//Create Stripe Session
 		const checkoutSession = await stripe.checkout.sessions.create(params);
 
 		res.status(200).json(checkoutSession);
+
 	} catch (error) {
+
 		res.status(500).json({ error: error.message });
+
 	}
 }
 
