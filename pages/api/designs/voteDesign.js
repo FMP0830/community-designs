@@ -28,7 +28,7 @@ export default async function handler(req, res) {
 		const updatedVote = await Design.findByIdAndUpdate(
 			designId,
 			{
-				$push: { voted_by: userId }
+				$addToSet: { voted_by: userId }
 			},
 			{ new: true }
 		);

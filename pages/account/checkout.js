@@ -1,5 +1,5 @@
 import PropTypes from 'prop-types';
-import { useEffect } from 'react';
+import { useState, useEffect } from 'react';
 
 import Layout from '@/components/layout/Layout';
 
@@ -15,13 +15,13 @@ import { getSession } from 'next-auth/client';
 import { createPurchase } from '@/services/Cart.service';
 
 function CheckoutPage({ user }) {
+	const router = useRouter();
 
-  const router = useRouter();
+	const [transactionDone, setTransactionDone] = useState(false);
 
 	const { cartCount, totalPrice, cartDetails, clearCart } = useShoppingCart();
 
 	const handleCheckout = async () => {
-
 		const purchase = {
 			numberOfItems: cartCount,
 			totalPrice,
@@ -31,18 +31,20 @@ function CheckoutPage({ user }) {
 			userSelling: Object.values(cartDetails).map((obj) => obj.author.id)
 		};
 
-		const newPurchase = await createPurchase(purchase)
+		const newPurchase = await createPurchase(purchase);
 
-    if(newPurchase.error) toast.error(newPurchase.error)
-    if(newPurchase && !newPurchase.error) {
-      //if(cartCount > 0) clearCart()
-      
-      console.log(newPurschase)
-    }
+		if (newPurchase.error) toast.error(newPurchase.error);
+		if (newPurchase && !newPurchase.error) {
+			if (cartCount > 0) {
+				clearCart();
+				router.push('/account/profile');
+			}
+		}
 	};
 
-	useEffect(() => handleCheckout(), []);
+	useEffect(() => setTransactionDone(true), []);
 
+	if (transactionDone) handleCheckout();
 	return (
 		<Layout title='Checkout'>
 			<h1>

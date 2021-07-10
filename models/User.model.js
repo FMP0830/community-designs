@@ -37,7 +37,7 @@ const userSchema = new Schema(
 			{ type: mongoose.Schema.Types.ObjectId, default: [], ref: 'Design' }
 		],
 		orders: [
-			{ type: mongoose.Schema.Types.ObjectId, default: [], ref: 'Order' }
+			{ type: mongoose.Schema.Types.ObjectId, default: [], ref: 'Purchase' }
 		]
 	},
 	{

@@ -25,7 +25,9 @@ function DesignCard({
 			{inProfile && <Image src={image} width={150} height={150} />}
 			{!inProfile && (
 				<Link href={`/designs/${id}`}>
-					<Image src={image} width={150} height={150} />
+					<a>
+						<Image src={image} width={150} height={150} />
+					</a>
 				</Link>
 			)}
 			<div className={styles.content}>

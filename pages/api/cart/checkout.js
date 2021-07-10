@@ -10,7 +10,6 @@ const validateCartItems =
 
 async function handler(req, res) {
 	try {
-
 		//Validate req method
 		if (req.method !== 'POST') {
 			res.status(403).json({ message: 'Bad request' });
@@ -23,8 +22,7 @@ async function handler(req, res) {
 				? req.headers.origin
 				: 'http://localhost:3000';
 
-
-		//Create the cartItems and format them for Stripe 
+		//Create the cartItems and format them for Stripe
 		const cartItems = [];
 
 		for (let item in req.body) {
@@ -50,21 +48,17 @@ async function handler(req, res) {
 			payment_method_types: ['card'],
 			billing_address_collection: 'auto',
 			line_items: cartItems,
-			success_url: `${origin}/account/cart`,
+			success_url: `${origin}/account/checkout`,
 			cancel_url: `${origin}/account/cart`,
 			mode: 'payment'
 		};
-
 
 		//Create Stripe Session
 		const checkoutSession = await stripe.checkout.sessions.create(params);
 
 		res.status(200).json(checkoutSession);
-
 	} catch (error) {
-
 		res.status(500).json({ error: error.message });
-
 	}
 }
 
